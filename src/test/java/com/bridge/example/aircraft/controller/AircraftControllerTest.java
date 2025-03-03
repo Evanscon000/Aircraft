@@ -35,4 +35,18 @@ public class AircraftControllerTest {
                 .andExpect(jsonPath("$.pilot").value("Snoopy, the Beagle"));
     }
 
+    @Test
+    void getAircraft() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/aircraft"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isArray());
+    }
+
+    @Test
+    void getAircraftById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/aircraft/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1));
+    }
+
 }

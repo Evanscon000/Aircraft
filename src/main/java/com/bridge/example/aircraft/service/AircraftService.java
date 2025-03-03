@@ -16,4 +16,18 @@ public class AircraftService {
         return aircraft;
     }
 
+    public ArrayList<Aircraft> findAllAircraft() {
+        Aircraft aircraft = new Aircraft(1L, "Dog Hourse", "Snoopy, the Beagle");
+        aircraftList.add(aircraft);
+        System.out.println("List all aircraft");
+        return aircraftList;
+    }
+
+    public Aircraft findAircraftById(Long id) {
+        Aircraft aircraft = new Aircraft(1L, "Dog Hourse", "Snoopy, the Beagle");
+        aircraftList.add(aircraft);
+        System.out.println("Found Dog House: " + id);
+        return aircraft;
+    }
+
 }
