@@ -1,17 +1,23 @@
 package com.bridge.example.aircraft.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Aircraft {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String airframe;
     private String pilot;
 
     public Aircraft() {
-        this(1L, "None", "None");
     }
 
-    public Aircraft(Long id, String airframe, String pilot) {
-        this.id = id;
+    public Aircraft(String airframe, String pilot) {
         this.airframe = airframe;
         this.pilot = pilot;
     }

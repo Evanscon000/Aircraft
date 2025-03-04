@@ -5,6 +5,7 @@ import com.bridge.example.aircraft.service.AircraftService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -23,7 +24,7 @@ public class AircraftController {
     }
 
     @GetMapping("/aircraft")
-    public ArrayList<Aircraft> getAircraft() {
+    public List<Aircraft> getAircraft() {
         return aircraftService.findAllAircraft();
     }
 
