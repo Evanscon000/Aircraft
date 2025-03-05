@@ -1,0 +1,16 @@
+services:
+  postgres-db:
+    container_name: aircraft
+    image: postgres # use latest official postgres version
+    restart: always
+    environment:
+      POSTGRES_USER: aircraft_dev
+      POSTGRES_PASSWORD: aircraft_dev12
+      POSTGRES_DB: aircraft
+      POSTGRES_HOST_AUTH_METHOD: password
+    ports:
+      - "5434:5432"
+
+volumes:
+  postgresql_data:
+    driver: local
