@@ -25,4 +25,37 @@ public class AircraftService {
         return aircraftRepository.findById(id).get();
     }
 
+    public Aircraft updateAircraftById(Long id, Aircraft aircraft) {
+        if (!aircraftRepository.existsById(id)) {
+            // should return status code not found
+            System.out.println("Aircraft not found with id: " + id);
+        }
+        aircraft.setId(id);
+        return aircraftRepository.save(aircraft);
+    }
+
+    public Aircraft partialUpdateAircraft(Long id, Aircraft aircraft) {
+        Aircraft existingAircraft = aircraftRepository.findById(id).orElse(null);
+        if (existingAircraft == null) {
+            // Send back not found status code
+            System.out.println("Aircraft not found with id " + id);
+        }
+
+        if (aircraft.getAirframe() != null) {
+            existingAircraft.setAirframe(aircraft.getAirframe());
+        }
+        if (aircraft.getPilot() != null) {
+            existingAircraft.setPilot(aircraft.getPilot());
+        }
+
+        return aircraftRepository.save(existingAircraft);
+    }
+
+    public void deleteAircraft(Long id) {
+        if (!aircraftRepository.existsById(id)) {
+            System.out.println("Aircraft not found with id " + id);
+        }
+        // Send back Delete status success
+        aircraftRepository.deleteById(id);
+    }
 }
