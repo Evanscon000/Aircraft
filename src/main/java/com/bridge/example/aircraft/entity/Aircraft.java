@@ -1,9 +1,6 @@
 package com.bridge.example.aircraft.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Aircraft {
@@ -12,12 +9,13 @@ public class Aircraft {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String airframe;
-    private String pilot;
+    @ManyToOne
+    private Pilot pilot;
 
     public Aircraft() {
     }
 
-    public Aircraft(String airframe, String pilot) {
+    public Aircraft(String airframe, Pilot pilot) {
         this.airframe = airframe;
         this.pilot = pilot;
     }
@@ -38,11 +36,11 @@ public class Aircraft {
         this.airframe = airframe;
     }
 
-    public String getPilot() {
+    public Pilot getPilot() {
         return pilot;
     }
 
-    public void setPilot(String pilot) {
+    public void setPilot(Pilot pilot) {
         this.pilot = pilot;
     }
 }

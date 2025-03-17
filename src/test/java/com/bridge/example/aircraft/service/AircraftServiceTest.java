@@ -1,6 +1,7 @@
 package com.bridge.example.aircraft.service;
 
 import com.bridge.example.aircraft.entity.Aircraft;
+import com.bridge.example.aircraft.entity.Pilot;
 import com.bridge.example.aircraft.repository.AircraftRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,8 @@ class AircraftServiceTest {
     @InjectMocks
     AircraftService aircraftService;
 
+    Pilot snoopy = new Pilot("Snoopy", "the Beagle", 10);
+    Pilot baron = new Pilot("The Red ", "Baron", 34);
     private Aircraft doghouse;
     private Aircraft triplane;
     List<Aircraft> flight;
@@ -30,8 +33,8 @@ class AircraftServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        doghouse = new Aircraft("Dog House", "Snoopy, the Beagle");
-        triplane = new Aircraft("DR-1", "The Red Baron");
+        doghouse = new Aircraft("Dog House", snoopy);
+        triplane = new Aircraft("DR-1", baron);
         flight = new ArrayList<>(List.of(doghouse, triplane));
     }
 

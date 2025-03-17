@@ -1,6 +1,7 @@
 package com.bridge.example.aircraft.controller;
 
 import com.bridge.example.aircraft.entity.Aircraft;
+import com.bridge.example.aircraft.entity.Pilot;
 import com.bridge.example.aircraft.service.AircraftService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,10 +36,15 @@ public class AircraftControllerTest {
     @MockitoBean
     private AircraftService aircraftService;
 
-    Aircraft aircraft = new Aircraft("Dog House", "Snoopy, the Beagle");
-    Aircraft updatedDogHouse = new Aircraft("Dog House Mk.II", "Snoopy, the Ace");
-    Aircraft updatedBiplane = new Aircraft("D.VII", "The Baron");
-    Aircraft deleteAircraft = new Aircraft("Pallet", "Bob");
+    Pilot snoopy = new Pilot("Snoopy", ", the Beagle", 10);
+    Pilot snoopyAce = new Pilot("Snoopy", ", the Ace", 10);
+    Pilot baron = new Pilot("The Red", "Baron", 34);
+    Pilot theBaron = new Pilot("The", "Baron", 34);
+
+    Aircraft aircraft = new Aircraft("Dog House", snoopy);
+    Aircraft updatedDogHouse = new Aircraft("Dog House Mk.II", snoopyAce);
+    Aircraft updatedBiplane = new Aircraft("D.VII", theBaron);
+    Aircraft deleteAircraft = new Aircraft("Pallet", new Pilot("Bob", "", 24));
     List<Aircraft> flight = new ArrayList<>();
 
     @BeforeEach
@@ -67,7 +73,8 @@ public class AircraftControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.airframe").value("Dog House"))
-                .andExpect(jsonPath("$.pilot").value("Snoopy, the Beagle"));
+                .andExpect(jsonPath("$.pilot.firstName").value("Snoopy"))
+                .andExpect(jsonPath("$.pilot.lastName").value(", the Beagle"));
         Mockito.verify(aircraftService).saveAircraft(any(Aircraft.class));
     }
 
@@ -92,14 +99,16 @@ public class AircraftControllerTest {
         Aircraft updatedAircraft = new Aircraft();
         updatedAircraft.setId(1L);
         updatedAircraft.setAirframe("Dog House Mk.II");
-        updatedAircraft.setPilot("Snoopy the Ace");
+        updatedAircraft.setPilot(snoopyAce);
+        String updateContent = objectMapper.writeValueAsString(updatedAircraft);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/aircraft/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"airframe\":\"Dog House Mk.II\",\"pilot\":\"Snoopy, the Ace\"}"))
+                        .content(updateContent))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.airframe").value("Dog House Mk.II"))
-                .andExpect(jsonPath("$.pilot").value("Snoopy, the Ace"));
+                .andExpect(jsonPath("$.pilot.firstName").value("Snoopy"))
+                .andExpect(jsonPath("$.pilot.lastName").value(", the Ace"));
     }
 
     @Test
@@ -109,7 +118,7 @@ public class AircraftControllerTest {
         existingAircraft.setAirframe("D.VII");
 
         Aircraft updatedAircraft = new Aircraft();
-        updatedAircraft.setPilot("The Baron");
+        updatedAircraft.setPilot(theBaron);
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/api/aircraft/2")
                         .contentType(MediaType.APPLICATION_JSON)
