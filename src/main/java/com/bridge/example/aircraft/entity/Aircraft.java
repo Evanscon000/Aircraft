@@ -9,7 +9,8 @@ public class Aircraft {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String airframe;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pilot_id")
     private Pilot pilot;
 
     public Aircraft() {

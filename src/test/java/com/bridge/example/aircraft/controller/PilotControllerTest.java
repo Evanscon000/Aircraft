@@ -40,8 +40,8 @@ public class PilotControllerTest {
 
     @BeforeEach
     void setUp() {
-        snoopy = new Pilot("Snoopy", "The Beagle", 10);
-        baron = new Pilot("The Red", "Baron", 34);
+        snoopy = new Pilot(1L, "Snoopy", "The Beagle", 10);
+        baron = new Pilot(2L, "The Red", "Baron", 34);
         pilots = new ArrayList<>(List.of(snoopy, baron));
 
         Mockito.when(pilotService.savePilot(Mockito.any(Pilot.class))).thenReturn(snoopy);
@@ -66,6 +66,7 @@ public class PilotControllerTest {
         mockMvc.perform(get("/api/pilot"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].firstName").value("The Red"))
                 .andExpect(jsonPath("$[0].lastName").value("The Beagle"))
                 .andExpect(jsonPath("$[1].age").value("34"));
@@ -76,6 +77,7 @@ public class PilotControllerTest {
     void shouldFindPilotById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/pilot/2"))
                 .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.id").value(2))
                 .andExpect(jsonPath("$.firstName").value("The Red"))
                 .andExpect(jsonPath("$.lastName").value("Baron"))
                 .andExpect(jsonPath("$.age").value(34));

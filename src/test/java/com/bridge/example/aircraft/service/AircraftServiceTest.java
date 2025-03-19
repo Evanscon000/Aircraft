@@ -24,8 +24,8 @@ class AircraftServiceTest {
     @InjectMocks
     AircraftService aircraftService;
 
-    Pilot snoopy = new Pilot("Snoopy", "the Beagle", 10);
-    Pilot baron = new Pilot("The Red ", "Baron", 34);
+    Pilot snoopy = new Pilot(1L, "Snoopy", "the Beagle", 10);
+    Pilot baron = new Pilot(2L,"The Red ", "Baron", 34);
     private Aircraft doghouse;
     private Aircraft triplane;
     List<Aircraft> flight;

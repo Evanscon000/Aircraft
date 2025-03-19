@@ -2,13 +2,7 @@ ALTER TABLE aircraft
     ADD pilot_id BIGINT;
 
 ALTER TABLE aircraft
-    ADD CONSTRAINT FK_AIRCRAFT_ON_PILOT FOREIGN KEY (pilot_id) REFERENCES pilot (id);
+    ADD CONSTRAINT FK_PILOTID_ON_AIRCRAFT FOREIGN KEY (pilot_id) REFERENCES pilot (id);
 
 ALTER TABLE aircraft
     DROP COLUMN pilot;
-
-ALTER TABLE pilot
-    ALTER COLUMN first_name TYPE VARCHAR(255) USING (first_name::VARCHAR(255));
-
-ALTER TABLE pilot
-    ALTER COLUMN last_name TYPE VARCHAR(255) USING (last_name::VARCHAR(255));

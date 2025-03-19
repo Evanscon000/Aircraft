@@ -25,8 +25,8 @@ class PilotServiceTest {
     @InjectMocks
     PilotService pilotService;
 
-    Pilot snoopy = new Pilot("Snoopy", "the Beagle", 10);
-    Pilot baron = new Pilot("The Red", "Baron", 32);
+    Pilot snoopy = new Pilot(1L,"Snoopy", "the Beagle", 10);
+    Pilot baron = new Pilot(2L, "The Red", "Baron", 32);
     List<Pilot> pilots;
 
     @BeforeEach

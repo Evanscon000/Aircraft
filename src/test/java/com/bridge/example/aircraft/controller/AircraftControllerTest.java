@@ -36,15 +36,15 @@ public class AircraftControllerTest {
     @MockitoBean
     private AircraftService aircraftService;
 
-    Pilot snoopy = new Pilot("Snoopy", ", the Beagle", 10);
-    Pilot snoopyAce = new Pilot("Snoopy", ", the Ace", 10);
-    Pilot baron = new Pilot("The Red", "Baron", 34);
-    Pilot theBaron = new Pilot("The", "Baron", 34);
+    Pilot snoopy = new Pilot(1L, "Snoopy", ", the Beagle", 10);
+    Pilot snoopyAce = new Pilot(1L, "Snoopy", ", the Ace", 10);
+    Pilot baron = new Pilot(2L, "The Red", "Baron", 34);
+    Pilot theBaron = new Pilot(2L, "The", "Baron", 34);
 
     Aircraft aircraft = new Aircraft("Dog House", snoopy);
     Aircraft updatedDogHouse = new Aircraft("Dog House Mk.II", snoopyAce);
     Aircraft updatedBiplane = new Aircraft("D.VII", theBaron);
-    Aircraft deleteAircraft = new Aircraft("Pallet", new Pilot("Bob", "", 24));
+    Aircraft deleteAircraft = new Aircraft("Pallet", new Pilot(3L, "Bob", "", 24));
     List<Aircraft> flight = new ArrayList<>();
 
     @BeforeEach
